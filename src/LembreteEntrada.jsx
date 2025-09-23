@@ -7,7 +7,7 @@ const LembreteEntrada = () => {
             <input 
                 type="text"
                 id="lembrete"
-                className="flex-grow-1 text-center"
+                className="flex-grow-1 text-center border rounded py-2"
                 placeholder="Digite seu novo lembrete"/>
             </div>
         </div>
