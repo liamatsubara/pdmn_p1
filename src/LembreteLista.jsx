@@ -14,12 +14,12 @@ class LembreteLista extends React.Component {
         <div className="row">
           {lembretes.map(lembrete => (
             <div key={lembrete.id} className="col-12 text-center">
-              <div className="d-flex border rounded my-2 align-items-center justify-content-center">
-                <p className="col-11 m-2">{lembrete.texto}</p>
+              <div className="d-flex border rounded my-2 align-items-center">
+                <p className="flex-grow-1 m-2">{lembrete.texto}</p>
                 <i className={`me-2 fa-star ${lembrete.favorito ? 'fa-solid' : 'fa-regular'}`}
                     onClick={() => this.props.onAlternaFavorito(lembrete.id)}
                     style={{ cursor: "pointer" }}></i>
-                <i className="fa-solid fa-trash"
+                <i className="me-3 fa-solid fa-trash"
                     onClick={() => this.remover(lembrete)}
                     style={{ cursor: "pointer" }}></i>
               </div>
