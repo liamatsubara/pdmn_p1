@@ -9,6 +9,7 @@ class App extends React.Component {
 
     this.state = {
       lembretes: [],
+      filtro: 'todos',
     }
   }
 
@@ -42,13 +43,38 @@ class App extends React.Component {
     })
   }
 
+  alternarFiltro = () => {
+    this.setState(prevState => ({
+      filtro: prevState.filtro === 'todos' ? 'favoritos' : 'todos'
+    }))
+  }
+
   render() {
+
+    const lembretes = this.state.lembretes
+    const filtro = this.state.filtro
+    let lembretesFiltrados
+
+    if(this.state.filtro === 'todos'){
+      lembretesFiltrados = this.state.lembretes
+    } else {
+      lembretesFiltrados = this.state.lembretes.filter(lembrete => lembrete.favorito === true)
+    }
+
+
     return (
       <div className="container px-2 mt-4">
+        <div className="d-flex justify-content-end mb-3">
+          <button className="btn btn-secondary" onClick={this.alternarFiltro}>
+            {filtro === 'todos' ? 'Apenas Favoritos' : 'Todos'}
+          </button>
+        </div>
+
         <LembreteLista
-          lembretes={this.state.lembretes}
+          lembretes={lembretesFiltrados}
           onRemoveLembrete={this.removeLembrete}
           onAlternaFavorito={this.isFavorito}/>
+          
         <LembreteEntrada onAddLembrete={this.addLembrete}/>
       </div>
     )
