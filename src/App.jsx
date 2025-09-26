@@ -13,7 +13,10 @@ class App extends React.Component {
   }
 
   addLembrete = (lembrete) => {
-    const novoLembrete = {texto: lembrete}
+    const novoLembrete = {
+      id: Date.now(),
+      texto: lembrete
+    }
 
     const novosLembretes = [...this.state.lembretes]
     novosLembretes.push(novoLembrete)
@@ -21,11 +24,18 @@ class App extends React.Component {
     this.setState({lembretes: novosLembretes})
   }
 
+  removeLembrete = (id) => {
+    this.setState({
+      lembretes: this.state.lembretes.filter(lembrete => lembrete.id != id)
+    })
+  }
+
   render() {
     return (
       <div className="container px-2 mt-4">
         <LembreteLista
-          lembretes={this.state.lembretes}/>
+          lembretes={this.state.lembretes}
+          onRemoveLembrete={this.removeLembrete}/>
         <LembreteEntrada onAddLembrete={this.addLembrete}/>
       </div>
     )
