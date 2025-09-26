@@ -15,7 +15,8 @@ class App extends React.Component {
   addLembrete = (lembrete) => {
     const novoLembrete = {
       id: Date.now(),
-      texto: lembrete
+      texto: lembrete,
+      favorito: false
     }
 
     const novosLembretes = [...this.state.lembretes]
@@ -30,12 +31,24 @@ class App extends React.Component {
     })
   }
 
+  isFavorito = (id) => {
+    this.setState({
+      lembretes: this.state.lembretes.map((lembrete => {
+        if(lembrete.id === id) {
+          return { ...lembrete, favorito: !lembrete.favorito }
+        }
+        return lembrete
+      }))
+    })
+  }
+
   render() {
     return (
       <div className="container px-2 mt-4">
         <LembreteLista
           lembretes={this.state.lembretes}
-          onRemoveLembrete={this.removeLembrete}/>
+          onRemoveLembrete={this.removeLembrete}
+          onAlternaFavorito={this.isFavorito}/>
         <LembreteEntrada onAddLembrete={this.addLembrete}/>
       </div>
     )
